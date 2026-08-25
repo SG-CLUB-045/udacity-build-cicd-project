@@ -11,40 +11,42 @@ on:
 
 jobs:
 
-  lint:
-    name: Lint Backend
-    runs-on: ubuntu-latest
+lint:
+  name: Lint Backend
+  runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: starter/backend
+  defaults:
+    run:
+      working-directory: starter/backend
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
 
-      - name: Restore Pipenv cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-backend-pip-${{ hashFiles('starter/backend/Pipfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-backend-pip-
+    - name: Restore Pipenv cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-backend-pip-${{ hashFiles('starter/backend/Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-backend-pip-
 
-      - name: Install Pipenv
-        run: pip install pipenv
+    - name: Install Pipenv
+      run: pip install pipenv
 
-      - name: Install dependencies
-        run: pipenv install --deploy
+    - name: Install dependencies
+      run: pipenv install --deploy
 
-      - name: Run lint
-        run: pipenv run lint
+    - name: Install flake8
+      run: pip install flake8
 
+    - name: Run lint
+      run: pipenv run lint
 
   test:
     name: Test Backend
