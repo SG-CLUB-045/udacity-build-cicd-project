@@ -82,7 +82,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: npm test -- --watchAll=false
+        run: npm run test -- --watchAll=false
         env:
           CI: true
 
@@ -104,7 +104,7 @@ jobs:
 
     steps:
       # Checkout the repository
-      - name: Checkout code
+      - name: Checkout the repository
         uses: actions/checkout@v4
 
       # Setup Node.js
@@ -125,6 +125,12 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: npm ci
+
+      # Run tests
+      - name: Run tests
+        run: npm run test -- --watchAll=false
+        env:
+          CI: true
 
       # Build Docker image
       - name: Build Docker image
